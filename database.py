@@ -10,9 +10,12 @@ import streamlit as st
 cred = credentials.Certificate(dict(st.secrets["firebase"]))
 # --- CHANGE THIS LINE ---
 # Access the apps submodule via the main firebase_admin package
-if not firebase_admin.apps:
-# ------------------------
+try:
     firebase_admin.initialize_app(cred)
+except ValueError as e:
+    # This error occurs if initialize_app() is called more than once
+    # We can safely ignore it and proceed
+    pass
     
 db = firestore.client()
 print("Firebase Admin SDK initialized successfully.")
