@@ -5,13 +5,30 @@ import uuid
 from datetime import datetime, timezone
 from dotenv import load_dotenv
 import os 
+import streamlit as st
 
 load_dotenv()
 
 # Initialize Firestore
-cred = credentials.Certificate(os.getenv("GOOGLE_APPLICATION_CREDENTIALS"))
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+service_account_file = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+if not service_account_file:
+    st.error("Error: GOOGLE_APPLICATION_CREDENTIALS environment variable is not set. Please add it to your .env file or Streamlit secrets.")
+    st.stop() # Stops the app from running further
+
+try:
+    # Use os.path.join to create a robust file path
+    service_account_key_path = os.path.join(os.getcwd(), service_account_file)
+    cred = credentials.Certificate(service_account_key_path)
+
+    if not firebase_admin.apps:
+        firebase_admin.initialize_app(cred)
+    
+    db = firestore.client()
+    print("Firebase Admin SDK initialized successfully.")
+
+except Exception as e:
+    st.error(f"Error initializing Firebase Admin SDK: {e}")
+    st.stop() # Stops the app if initialization fails
 
 def save_chat_history(session_id, user_message, bot_message):
     """Saves a turn of conversation to Firestore."""
