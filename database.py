@@ -13,7 +13,8 @@ if "firebase" in st.secrets:
     # --- FIX: Use a try-except block to handle re-initialization gracefully ---
     # This is a robust and universal way to handle this error in Streamlit apps.
     try:
-        firebase_admin.initialize_app(cred)
+        if not firebase_admin._apps:
+            firebase_admin.initialize_app(cred)
         print("Firebase Admin SDK initialized successfully.")
     except ValueError as e:
         # This error occurs if initialize_app() is called more than once
