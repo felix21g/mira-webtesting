@@ -132,5 +132,5 @@ webcolors
 webencodings
 websocket-client
 openai
-firebase-admin
+firebase-admin>=6.0.0
 dotenv
