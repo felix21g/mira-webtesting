@@ -7,15 +7,18 @@ import streamlit as st
 
 
 # Check if Firebase credentials are provided in Streamlit's secrets
-cred = credentials.Certificate(dict(st.secrets["firebase"]))
+if "firebase" in st.secrets:
+    cred_dict = dict(st.secrets["firebase"])
+    cred = credentials.Certificate(cred_dict)
 # --- CHANGE THIS LINE ---
 # Access the apps submodule via the main firebase_admin package
 try:
     firebase_admin.initialize_app(cred)
+    print("Firebase Admin SDK initialized successfully.")
 except ValueError as e:
     # This error occurs if initialize_app() is called more than once
     # We can safely ignore it and proceed
-    pass
+    print("Firebase Admin SDK already initialized. Skipping.")
     
 # Retrieve the default app that was initialized
 app = firebase_admin.get_app() 
