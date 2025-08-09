@@ -1,6 +1,6 @@
 # In database.py
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, apps
 import uuid
 from datetime import datetime, timezone
 import streamlit as st
@@ -8,8 +8,8 @@ import streamlit as st
 
 
 # Initialize Firestore
-cred = credentials.Certificate(dict(st.secrets["firebase"]))
-if not firebase_admin.apps:
+if not apps.get_app(name="[DEFAULT]"):
+    cred = credentials.Certificate(dict(st.secrets["firebase"]))
     firebase_admin.initialize_app(cred)
     
 db = firestore.client()
