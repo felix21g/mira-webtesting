@@ -3,6 +3,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import uuid
 from datetime import datetime, timezone
+from dotenv import load_dotenv
 import os 
 
 # Initialize Firestore
