@@ -131,3 +131,6 @@ wcwidth
 webcolors
 webencodings
 websocket-client
+openai
+firebase-admin
+dotenv
