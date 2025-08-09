@@ -32,10 +32,11 @@ Welcome to the MIRA chatbot web experiment! Your feedback is crucial for helping
 1.  **Select a Persona:** Use the radio button below to choose either the **Warm** or **Clinical** chatbot.
 2.  **Ask Questions:** In the chat box, ask questions related to the challenges of caregiving for a person with dementia (PWD).
     * *Examples:* "My mother keeps wandering, what should I do?" or "I'm feeling burnt out from caregiving, can you help?"
-3.  **Observe the Difference:** Pay close attention to the **tone** and **style** of the responses.
+3.  **Engage with Each Bot:** For each persona, you need to have a continuous conversation with a **minimum of 10 prompts** before switching.
+4.  **Observe the Difference:** Pay close attention to the **tone** and **style** of the responses.
     * **Warm Bot:** Should feel empathetic, supportive, and conversational.
     * **Clinical Bot:** Should be direct, factual, and professional.
-4.  **Start a New Conversation:** Use the 'Start New Conversation' button to reset the chat and try the other persona.
+5.  **Start a New Conversation:** Use the 'Start New Conversation' button to reset the chat and try the other persona.
 
 ---
 ### **Your Role as a Tester: Providing Feedback**
