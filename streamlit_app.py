@@ -9,7 +9,7 @@ import os
 # If they are in the same directory as this streamlit_app.py, you can just use `from chatbot_warm import...`.
 
 # Example if chatbot files are in a 'chatbot_services' folder:
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'chatbot_services')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'chatbot_types')))
 
 from chatbot_types.chatbot_warm import get_chatbot_response as get_warm_response
 from chatbot_types.chatbot_clinical import get_chatbot_response as get_clinical_response
