@@ -7,15 +7,24 @@ import streamlit as st
 
 
 
-# Initialize Firestore
-cred = credentials.Certificate(dict(st.secrets["firebase"]))
-if not firebase_admin.apps:
-    firebase_admin.initialize_app(cred)
+# Check if Firebase credentials are provided in Streamlit's secrets
+if "firebase" in st.secrets:
+    cred_dict = dict(st.secrets["firebase"])
+    # You might want to add more robust checks for the content of cred_dict
+    cred = credentials.Certificate(cred_dict)
+    if not firebase_admin.apps:
+        firebase_admin.initialize_app(cred)
     
-db = firestore.client()
-print("Firebase Admin SDK initialized successfully.")
+    db = firestore.client()
+    print("Firebase Admin SDK initialized successfully.")
+else:
+    st.error("Firebase credentials not found in Streamlit secrets.")
+    db = None
 
 def save_chat_history(session_id, user_message, bot_message):
+    if db is None:
+        print("Firestore client not initialized. Skipping save.")
+        return
     """Saves a turn of conversation to Firestore."""
     try:
         doc_ref = db.collection("chat_sessions").document(session_id).collection("messages").document()
@@ -29,6 +38,9 @@ def save_chat_history(session_id, user_message, bot_message):
         print(f"Error saving to Firestore: {e}")
 
 def get_chat_history(session_id):
+    if db is None:
+        print("Firestore client not initialized. Skipping fetch.")
+        return []
     """Returns chat history formatted for OpenAI API."""
     messages_ref = db.collection("chat_sessions").document(session_id).collection("messages")
     try:

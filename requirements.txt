@@ -1,4 +1,8 @@
 altair
+firebase-admin>=6.0.0
+google-cloud-firestore
+streamlit
+uuid
 anyio
 argon2-cffi
 argon2-cffi-bindings
