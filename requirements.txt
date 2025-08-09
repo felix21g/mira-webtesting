@@ -133,3 +133,4 @@ webencodings
 websocket-client
 openai
 dotenv
+firebase_admin
