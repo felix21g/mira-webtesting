@@ -1,5 +1,6 @@
 import openai
 from config import OPENAI_API_KEY
+from typing import List, Dict, Any
 
 SYSTEM_PROMPT = """
 You are a compassionate healthcare consultant specializing in caregiving for Alzheimer's Disease and Related Dementias

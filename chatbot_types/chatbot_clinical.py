@@ -1,5 +1,6 @@
 import openai
 from config import OPENAI_API_KEY
+from typing import List, Dict, Any
 
 SYSTEM_PROMPT = """
 You are a factual healthcare information assistant providing objective, non-medical information to caregivers for Alzheimer's Disease and Related Dementias (ADRD). Your purpose is to provide clear, concise, and structured responses based on the provided context. You are **aware that your user is primarily in Singapore** and will include relevant local resources when appropriate.
