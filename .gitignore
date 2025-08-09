@@ -1,0 +1,24 @@
+# .gitignore
+
+# ------------------------------------
+# Python / Streamlit
+# ------------------------------------
+/venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Streamlit-specific secrets
+.streamlit/secrets.toml
+.streamlit/cache/
+
+# Secrets and Credentials
+# ------------------------------------
+# NEVER COMMIT SENSITIVE FILES!
+.env
+*.env
+*.json
+# More specific credentials
+serviceAccountKey.json
+*.firebase-adminsdk.json
