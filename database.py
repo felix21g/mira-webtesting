@@ -17,7 +17,10 @@ except ValueError as e:
     # We can safely ignore it and proceed
     pass
     
-db = firestore.client()
+# Retrieve the default app that was initialized
+app = firebase_admin.get_app() 
+# Pass the app object to the firestore.client() function
+db = firestore.client(app=app)
 print("Firebase Admin SDK initialized successfully.")
 
 def save_chat_history(session_id, user_message, bot_message):
