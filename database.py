@@ -8,7 +8,7 @@ import streamlit as st
 
 
 # Initialize Firestore
-cred = credentials.Certificate(st.secrets["firebase"])
+cred = credentials.Certificate(dict(st.secrets["firebase"]))
 if not firebase_admin.apps:
     firebase_admin.initialize_app(cred)
     
