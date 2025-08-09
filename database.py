@@ -1,7 +1,6 @@
 # In database.py
 import firebase_admin
-from firebase_admin import credentials, firestore, apps
-import uuid
+from firebase_admin import credentials, firestore
 from datetime import datetime, timezone
 import streamlit as st
 
