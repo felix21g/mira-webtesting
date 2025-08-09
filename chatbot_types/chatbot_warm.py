@@ -54,13 +54,18 @@ Each response should be constructed from the following four aspects. Think step 
 •   Non-judgmental & supportive: Caregiving is challenging—reassure the user that they are doing your best.
 """
 
-# Initialize the OpenAI client
-openai.api_key = OPENAI_API_KEY
+# Initialize the OpenAI client properly for v1.x
+client = openai.OpenAI(api_key=OPENAI_API_KEY)
+
+import time
 
 def get_chatbot_response(chat_history: List[Dict[str, Any]]) -> str:
     """
     Gets a response from the OpenAI API with an optimized chat history.
     """
+    start_time = time.time()
+    print(f"Starting API call at {start_time}")
+
     try:
         # --- OPTIMIZATION: Limit the chat history to the last N messages ---
         # A good practice is to keep the last 6-10 messages for a coherent conversation.
@@ -70,6 +75,9 @@ def get_chatbot_response(chat_history: List[Dict[str, Any]]) -> str:
         # Now, prepend the SYSTEM_PROMPT to this limited history
         messages_with_system_prompt = [{"role": "system", "content": SYSTEM_PROMPT}] + recent_history
         # ------------------------------------------------------------------
+
+        print(f"Making OpenAI API call...")
+        api_start = time.time()
         
         response = openai.chat.completions.create(
             model="gpt-3.5-turbo",
@@ -77,10 +85,15 @@ def get_chatbot_response(chat_history: List[Dict[str, Any]]) -> str:
             temperature=0.7,
             timeout=30 # Set a 30-second timeout
         )
+
+        api_end = time.time()
+        print(f"API call took {api_end - api_start:.2f} seconds")
+
         return response.choices[0].message.content
     except openai.APIStatusError as e:
         print(f"OpenAI API Error: {e.status_code} - {e.response}")
         return "I'm sorry, I'm having trouble connecting right now due to an API error. Please check your key or quota."
     except Exception as e:
         print(f"Error communicating with OpenAI: {e}")
+        print(f"Total time: {time.time() - start_time:.2f} seconds")
         return "I'm sorry, I'm having trouble connecting right now. Please try again later."
