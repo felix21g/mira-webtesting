@@ -1,21 +1,29 @@
 # In database.py
 import firebase_admin
-from firebase_admin import credentials, firestore, apps
-import uuid
+from firebase_admin import credentials, firestore
 from datetime import datetime, timezone
 import streamlit as st
 
 
 
-# Initialize Firestore
-if not apps.get_app(name="[DEFAULT]"):
-    cred = credentials.Certificate(dict(st.secrets["firebase"]))
+# Check if Firebase credentials are provided in Streamlit's secrets
+cred = credentials.Certificate(dict(st.secrets["firebase"]))
+# --- CHANGE THIS LINE ---
+# Access the apps submodule via the main firebase_admin package
+try:
     firebase_admin.initialize_app(cred)
+except ValueError as e:
+    # This error occurs if initialize_app() is called more than once
+    # We can safely ignore it and proceed
+    pass
     
 db = firestore.client()
 print("Firebase Admin SDK initialized successfully.")
 
 def save_chat_history(session_id, user_message, bot_message):
+    if db is None:
+        print("Firestore client not initialized. Skipping save.")
+        return
     """Saves a turn of conversation to Firestore."""
     try:
         doc_ref = db.collection("chat_sessions").document(session_id).collection("messages").document()
@@ -29,6 +37,9 @@ def save_chat_history(session_id, user_message, bot_message):
         print(f"Error saving to Firestore: {e}")
 
 def get_chat_history(session_id):
+    if db is None:
+        print("Firestore client not initialized. Skipping fetch.")
+        return []
     """Returns chat history formatted for OpenAI API."""
     messages_ref = db.collection("chat_sessions").document(session_id).collection("messages")
     try:

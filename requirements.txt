@@ -1,4 +1,8 @@
 altair
+firebase-admin>=6.0.0
+google-cloud-firestore>=2.17.0
+streamlit
+uuid
 anyio
 argon2-cffi
 argon2-cffi-bindings
@@ -132,5 +136,5 @@ webcolors
 webencodings
 websocket-client
 openai
-dotenv
+python-dotenv
 firebase_admin
