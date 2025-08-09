@@ -1,6 +1,6 @@
 # In database.py
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, apps
 import uuid
 from datetime import datetime, timezone
 import streamlit as st
@@ -12,7 +12,7 @@ if "firebase" in st.secrets:
     cred_dict = dict(st.secrets["firebase"])
     # You might want to add more robust checks for the content of cred_dict
     cred = credentials.Certificate(cred_dict)
-    if not firebase_admin.apps:
+    if not apps.get_app(name='[DEFAULT]'):
         firebase_admin.initialize_app(cred)
     
     db = firestore.client()
