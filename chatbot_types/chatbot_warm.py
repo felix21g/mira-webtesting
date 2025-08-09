@@ -48,29 +48,30 @@ Each response should be constructed from the following four aspects. Think step 
 # Initialize the OpenAI client
 openai.api_key = OPENAI_API_KEY
 
-def get_chatbot_response(chat_history):
+def get_chatbot_response(chat_history: List[Dict[str, Any]]) -> str:
     """
-    Gets a response from the OpenAI API.ss
-
-    Args:
-        chat_history (list): A list of message objects, e.g.,
-                             [{"role": "system", "content": SYSTEM_PROMPT},
-                              {"role": "user", "content": "..."}]
-
-    Returns:
-        str: The chatbot's response message.
+    Gets a response from the OpenAI API with an optimized chat history.
     """
     try:
-        # Prepend the SYSTEM_PROMPT to the chat_history for each API call
-        # This ensures the LLM always starts with its defined role and rules.
-        messages_with_system_prompt = [{"role": "system", "content": SYSTEM_PROMPT}] + chat_history
-
+        # --- OPTIMIZATION: Limit the chat history to the last N messages ---
+        # A good practice is to keep the last 6-10 messages for a coherent conversation.
+        num_messages_to_keep = 10  # This keeps the last 5 turns of conversation (user + bot)
+        recent_history = chat_history[-num_messages_to_keep:]
+        
+        # Now, prepend the SYSTEM_PROMPT to this limited history
+        messages_with_system_prompt = [{"role": "system", "content": SYSTEM_PROMPT}] + recent_history
+        # ------------------------------------------------------------------
+        
         response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",  
+            model="gpt-3.5-turbo",
             messages=messages_with_system_prompt,
-            temperature=0.7, # Adjust for more or less creative responses
+            temperature=0.7,
+            timeout=30 # Set a 30-second timeout
         )
         return response.choices[0].message.content
+    except openai.APIStatusError as e:
+        print(f"OpenAI API Error: {e.status_code} - {e.response}")
+        return "I'm sorry, I'm having trouble connecting right now due to an API error. Please check your key or quota."
     except Exception as e:
         print(f"Error communicating with OpenAI: {e}")
         return "I'm sorry, I'm having trouble connecting right now. Please try again later."
