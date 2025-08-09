@@ -3,9 +3,10 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import uuid
 from datetime import datetime, timezone
+import os 
 
 # Initialize Firestore
-cred = credentials.ApplicationDefault()
+cred = credentials.Certificate(os.getenv("GOOGLE_APPLICATION_CREDENTIALS"))
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
