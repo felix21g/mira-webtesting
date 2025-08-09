@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 import os 
 
+load_dotenv()
+
 # Initialize Firestore
 cred = credentials.Certificate(os.getenv("GOOGLE_APPLICATION_CREDENTIALS"))
 firebase_admin.initialize_app(cred)
