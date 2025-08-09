@@ -6,12 +6,7 @@ from datetime import datetime, timezone
 
 # Initialize Firestore
 cred = credentials.ApplicationDefault()
-
-# --- CHANGE THIS PART ---
-if not firebase_admin.apps:
-    firebase_admin.initialize_app(cred)
-# ------------------------
-    
+firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 def save_chat_history(session_id, user_message, bot_message):
