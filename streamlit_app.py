@@ -84,16 +84,15 @@ if user_input := st.chat_input("How can I help you today?"):
 
     # 2. Get chatbot response based on the selected persona
     with st.spinner(f"Thinking as a {selected_persona} chatbot..."):
-        # Fetch the conversation history from Firestore
-        # (This history does NOT include the system prompt, as the chatbot functions handle that)
-        chat_history_from_db = get_chat_history(st.session_state.session_id)
-        chat_history_from_db.append({"role": "user", "content": user_input})
+        # Construct the chat history from the session state.
+        # The user's new message is already appended to st.session_state.messages.
+        chat_history = st.session_state.messages
 
         # Call the correct get_chatbot_response function based on the radio button selection
         if selected_persona == "warm":
-            bot_response = get_warm_response(chat_history=chat_history_from_db)
+            bot_response = get_warm_response(chat_history=chat_history)
         else: # selected_persona == "clinical"
-            bot_response = get_clinical_response(chat_history=chat_history_from_db)
+            bot_response = get_clinical_response(chat_history=chat_history)
 
     # 3. Display bot response
     with st.chat_message("assistant"):
