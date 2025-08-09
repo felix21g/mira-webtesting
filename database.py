@@ -1,30 +1,31 @@
 # In database.py
 import firebase_admin
 from firebase_admin import credentials, firestore
+import uuid
 from datetime import datetime, timezone
 import streamlit as st
-
-
 
 # Check if Firebase credentials are provided in Streamlit's secrets
 if "firebase" in st.secrets:
     cred_dict = dict(st.secrets["firebase"])
     cred = credentials.Certificate(cred_dict)
-# --- CHANGE THIS LINE ---
-# Access the apps submodule via the main firebase_admin package
-try:
-    firebase_admin.initialize_app(cred)
-    print("Firebase Admin SDK initialized successfully.")
-except ValueError as e:
-    # This error occurs if initialize_app() is called more than once
-    # We can safely ignore it and proceed
-    print("Firebase Admin SDK already initialized. Skipping.")
     
-# Retrieve the default app that was initialized
-app = firebase_admin.get_app() 
-# Pass the app object to the firestore.client() function
-db = firestore.client(app=app)
-print("Firebase Admin SDK initialized successfully.")
+    # --- FIX: Use a try-except block to handle re-initialization gracefully ---
+    # This is a robust and universal way to handle this error in Streamlit apps.
+    try:
+        firebase_admin.initialize_app(cred)
+        print("Firebase Admin SDK initialized successfully.")
+    except ValueError as e:
+        # This error occurs if initialize_app() is called more than once
+        # We can safely ignore it and proceed
+        print("Firebase Admin SDK already initialized. Skipping.")
+    # -------------------------------------------------------------------------
+        
+    db = firestore.client()
+    
+else:
+    st.error("Firebase credentials not found in Streamlit secrets.")
+    db = None
 
 def save_chat_history(session_id, user_message, bot_message):
     if db is None:
