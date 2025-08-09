@@ -7,27 +7,15 @@ import streamlit as st
 
 
 # Check if Firebase credentials are provided in Streamlit's secrets
-@st.cache_resource
-def get_firestore_client():
-    if "firebase" not in st.secrets:
-        st.error("Firebase credentials not found in Streamlit secrets.")
-        st.stop()
-        
-    try:
-        cred_dict = dict(st.secrets["firebase"])
-        cred = credentials.Certificate(cred_dict)
-        
-        # Check if the app is already initialized, just in case
-        if not firebase_admin.apps:
-            firebase_admin.initialize_app(cred)
-        
-        return firestore.client()
-        print("Firebase Admin SDK initialized successfully.")
-    except Exception as e:
-        st.error(f"Error initializing Firebase Admin SDK: {e}")
-        st.stop()
-
-db = get_firestore_client()
+cred = credentials.Certificate(dict(st.secrets["firebase"]))
+# --- CHANGE THIS LINE ---
+# Access the apps submodule via the main firebase_admin package
+if not firebase_admin.apps:
+# ------------------------
+    firebase_admin.initialize_app(cred)
+    
+db = firestore.client()
+print("Firebase Admin SDK initialized successfully.")
 
 def save_chat_history(session_id, user_message, bot_message):
     if db is None:
