@@ -33,9 +33,10 @@ Welcome to our caregiver support chatbot study. Your participation is vital in h
 
 **Instructions:**
 1.  **Select a Persona:** Use the radio button below to choose a chatbot persona to interact with.
-2.  **Seek Information:** Use the chat box to ask for help with the primary task. You can ask questions like, "How can I calm my agitated father?" or "What are some strategies for managing agitation in dementia?"
-3.  **Find the Answer:** Continue the conversation until the chatbot provides a clear, actionable list of strategies for calming agitation.
-4.  **Provide Feedback:** After completing the task, you will be asked to rate your trust in the chatbot.
+2.  **Start the Conversation:** Use the chat box to ask for help with the primary task. You can ask questions like, "How can I calm my agitated father?" or "What are some strategies for managing agitation in dementia?"
+3.  **Engage with the Chatbot:** The chatbot will provide some initial tips and ask for more information. You must respond to the chatbot's follow-up question with details about your specific situation.
+4.  **Complete the Task:** Your task is complete once the chatbot provides its final, detailed, and comprehensive list of strategies for calming agitation.
+5.  **Provide Feedback:** After completing the task, you will be asked to rate your trust in the chatbot.
 
 Thank you for your valuable contribution to this study.
 """)
