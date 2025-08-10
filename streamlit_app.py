@@ -25,27 +25,19 @@ st.markdown("Use the selector below to switch between the **Warm** and **Clinica
 
 # --- Added Instructions for Testers ---
 st.markdown("""
-Welcome to the MIRA chatbot web experiment! Your feedback is crucial for helping us build a supportive and effective tool for caregivers.
+Welcome to our caregiver support chatbot study. Your participation is vital in helping us understand how to provide the best possible assistance to caregivers.
 
-**Your task is to try out both chatbot personas and compare your experience.**
+### Your Primary Task
 
-1.  **Select a Persona:** Use the radio button below to choose either the **Warm** or **Clinical** chatbot.
-2.  **Ask Questions:** In the chat box, ask questions related to the challenges of caregiving for a person with dementia (PWD).
-    * *Examples:* "My mother keeps wandering, what should I do?" or "I'm feeling burnt out from caregiving, can you help?"
-3.  **Engage with Each Bot:** For each persona, you need to have a continuous conversation with a **minimum of 10 prompts** before switching.
-4.  **Observe the Difference:** Pay close attention to the **tone** and **style** of the responses.
-    * **Warm Bot:** Should feel empathetic, supportive, and conversational.
-    * **Clinical Bot:** Should be direct, factual, and professional.
-5.  **Start a New Conversation:** Use the 'Start New Conversation' button to reset the chat and try the other persona.
+**Your goal is to find guidance on how to calm an agitated person with dementia.**
 
----
-### **Your Role as a Tester: Providing Feedback**
+**Instructions:**
+1.  **Select a Persona:** Use the radio button below to choose a chatbot persona to interact with.
+2.  **Seek Information:** Use the chat box to ask for help with the primary task. You can ask questions like, "How can I calm my agitated father?" or "What are some strategies for managing agitation in dementia?"
+3.  **Find the Answer:** Continue the conversation until the chatbot provides a clear, actionable list of strategies for calming agitation.
+4.  **Provide Feedback:** After completing the task, you will be asked to rate your trust in the chatbot.
 
-After trying both chatbots, please reflect on the following:
-
-**Which chatbot would you be more inclined to use for ongoing support, and why?**
-
-Think about which one you found more trustworthy, helpful, and comfortable to interact with. Your qualitative feedback on this is essential for our study. Thank you for your valuable time and insights!
+Thank you for your valuable contribution to this study.
 """)
 
 
