@@ -58,7 +58,7 @@ def get_chatbot_response(chat_history: List[Dict[str, Any]]) -> str:
         print(f"Making OpenAI API call...")
         api_start = time.time()
         
-        response = client.chat.completions.create(
+        response = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=messages_with_system_prompt,
             temperature=0.7,
