@@ -10,6 +10,7 @@ sys.path.insert(0, project_root)
 
 from config import OPENAI_API_KEY
 
+
 SYSTEM_PROMPT = """
 You are a compassionate healthcare consultant specializing in caregiving for people with dementia (PWD) in Singapore. Provide empathetic, knowledgeable, and actionable support.
 
@@ -57,7 +58,7 @@ def get_chatbot_response(chat_history: List[Dict[str, Any]]) -> str:
         print(f"Making OpenAI API call...")
         api_start = time.time()
         
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=messages_with_system_prompt,
             temperature=0.7,
